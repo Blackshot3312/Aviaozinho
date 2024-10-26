@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbarDefaultDelayBeforeFade="400">
+
+
+    <RelativeLayout
+        android:id="@+id/main_ad_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include layout="@layout/adlayout" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/main_menu_game_quake1"
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:onClick="startQuake1Game"
+        android:text="Iniciar motor QUAKE1" />
+
+    <Button
+        android:id="@+id/main_menu_extract_resource"
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:onClick="startExtractPatchResource"
+        android:text="Extrair" />
+
+    <Button
+        android:id="@+id/start_btn"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:onClick="start"
+        android:text="@string/start_game" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="                                            Inicie o Motor do QUAKE1, em seguida clique em extrair, logo após Start Game"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="                                                                                   É necessário apenas na primeira vez"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FF0000"
+        android:textSize="24sp" />
+
+</LinearLayout>
