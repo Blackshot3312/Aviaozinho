@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -97,7 +98,13 @@ import java.util.ResourceBundle;
 
 
 @SuppressLint({"ApplySharedPref", "CommitPrefEdits"})
-public class GameLauncher extends Activity
+
+
+
+
+
+
+public class GameLauncher extends AppCompatActivity
 {
     private static final int CONST_RESULT_CODE_REQUEST_EXTERNAL_STORAGE_FOR_START = 1;
     private static final int CONST_RESULT_CODE_REQUEST_EXTERNAL_STORAGE_FOR_EDIT_CONFIG_FILE = 2;
@@ -133,7 +140,7 @@ public class GameLauncher extends Activity
     private boolean m_cmdUpdateLock = false;
 	private String m_edtPathFocused = "";
 
-	public  void Start (){
+	/*public  void Start (){
 		// Responsável pela extração de arquivos
 		if (null == m_extractPatchResourceFunc) {
 			m_extractPatchResourceFunc = new ExtractPatchResourceFunc(this, CONST_RESULT_CODE_REQUEST_EXTRACT_PATCH_RESOURCE);
@@ -151,8 +158,26 @@ public class GameLauncher extends Activity
 		Bundle bundle = new Bundle();
 		bundle.putString("path", V.edt_path.getText().toString());
 		m_startGameFunc.Start(bundle);
+	} */
+
+	//Botões da Launcher
+	//          Responsável pela troca ao QUAKE1
+	public  void startQuake1Game(View view){
+		ChangeGame(Q3EGlobals.GAME_QUAKE1);
 	}
-    private final CompoundButton.OnCheckedChangeListener m_checkboxChangeListener = new CompoundButton.OnCheckedChangeListener()
+	public void ChangeGame(int game){
+		Toast.makeText(this, "Jogo alterado para Quake 1", Toast.LENGTH_SHORT).show();
+	}
+	//          Responsável pela extração dos dados
+	public void startExtractPatchResource(View view){
+		if (null == m_extractPatchResourceFunc) {
+			m_extractPatchResourceFunc = new ExtractPatchResourceFunc(this, CONST_RESULT_CODE_REQUEST_EXTRACT_PATCH_RESOURCE);
+			Bundle bundle = new Bundle();
+			bundle.putString("path", V.edt_path.getText().toString());
+			m_extractPatchResourceFunc.Start(bundle);
+		}
+	}
+	private final CompoundButton.OnCheckedChangeListener m_checkboxChangeListener = new CompoundButton.OnCheckedChangeListener()
     {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -878,6 +903,8 @@ public class GameLauncher extends Activity
 		Q3EUtils.DumpPID(this);
         Q3ELang.Locale(this);
 
+		setContentView(R.layout.main);
+
         //k
         KUncaughtExceptionHandler.HandleUnexpectedException(this);
         setTitle(R.string.app_title);
@@ -897,11 +924,7 @@ public class GameLauncher extends Activity
         Q3EUtils.q3ei.joystick_inner_dead_zone = mPrefs.getFloat(Q3EPreference.pref_harm_joystick_inner_dead_zone, 0.0f);
         Q3EUtils.q3ei.SetAppStoragePath(this);
 
-        TabHost th = (TabHost) findViewById(R.id.tabhost);
-        th.setup();
-        th.addTab(th.newTabSpec("tab1").setIndicator(Q3ELang.tr(this, R.string.general)).setContent(R.id.launcher_tab1));
-        th.addTab(th.newTabSpec("tab2").setIndicator(Q3ELang.tr(this, R.string.controls)).setContent(R.id.launcher_tab2));
-        th.addTab(th.newTabSpec("tab3").setIndicator(Q3ELang.tr(this, R.string.graphics)).setContent(R.id.launcher_tab3));
+
 
         V.Setup();
 		InitGameList();
